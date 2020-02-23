@@ -1,0 +1,76 @@
+@import "../../scss/settings.scss";
+
+.c-type-badge {
+  align-content: center;
+  align-items: center;
+  background-color: s-color("trout");
+  border-radius: 100%;
+  border: 4px solid s-color("white");
+  display: flex;
+  height: 40px;
+  justify-content: center;
+  justify-items: center;
+  width: 40px;
+  margin: 0 5px;
+  transition: 200ms all;
+
+  &__image {
+    margin: 0 auto;
+    width: 64%;
+  }
+
+  &--bug {
+    background-color: s-color("bug");
+  }
+  &--dark {
+    background-color: s-color("dark");
+  }
+  &--dragon {
+    background-color: s-color("dragon");
+  }
+  &--electric {
+    background-color: s-color("electric");
+  }
+  &--fairy {
+    background-color: s-color("fairy");
+  }
+  &--fighting {
+    background-color: s-color("fighting");
+  }
+  &--fire {
+    background-color: s-color("fire");
+  }
+  &--flying {
+    background-color: s-color("flying");
+  }
+  &--ghost {
+    background-color: s-color("ghost");
+  }
+  &--grass {
+    background-color: s-color("grass");
+  }
+  &--ground {
+    background-color: s-color("ground");
+  }
+  &--ice {
+    background-color: s-color("ice");
+  }
+  &--normal {
+    background-color: s-color("normal");
+  }
+  &--poison {
+    background-color: s-color("poison");
+  }
+  &--psychic {
+    background-color: s-color("psychic");
+  }
+  &--rock {
+    background-color: s-color("rock");
+  }
+  &--steel {
+    background-color: s-color("steel");
+  }
+  &--water {
+    background-color: s-color("water");
+  }
+}

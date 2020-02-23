@@ -1,0 +1,70 @@
+@function t-rem($size) {
+  $remSize: $size / 16px;
+  @return #{$remSize}rem;
+}
+
+$font-sizes: (
+    "x-small": t-rem(14px),
+    "small": t-rem(16px),
+    "medium": t-rem(20px),
+    "large": t-rem(28px),
+    "x-large": t-rem(44px)
+);
+
+$line-heights: (
+    "x-small": t-rem(16px),
+    "small": t-rem(18px),
+    "medium": t-rem(22px),
+    "large": t-rem(30px),
+    "x-large": t-rem(46px)
+);
+
+@mixin heading-1() {
+  font-size: map-get($font-sizes, 'small');
+  line-height: map-get($line-heights, 'small');
+
+  @include media("small", min) {
+    font-size: map-get($font-sizes, 'medium');
+    line-height: map-get($line-heights, 'medium');
+  }
+
+  @include media("medium", min) {
+    font-size: map-get($font-sizes, 'large');
+    line-height: map-get($line-heights, 'large');
+  }
+
+  @include media("large", min) {
+    font-size: map-get($font-sizes, 'x-large');
+    line-height: map-get($line-heights, 'x-large');
+  }
+}
+
+@mixin heading-2() {
+  font-size: map-get($font-sizes, 'x-small');
+  line-height: map-get($line-heights, 'x-small');
+
+  @include media("small", min) {
+    font-size: map-get($font-sizes, 'small');
+    line-height: map-get($line-heights, 'small');
+  }
+
+  @include media("medium", min) {
+    font-size: map-get($font-sizes, 'medium');
+    line-height: map-get($line-heights, 'medium');
+  }
+
+  @include media("large", min) {
+    font-size: map-get($font-sizes, 'large');
+    line-height: map-get($line-heights, 'large');
+  }
+}
+
+@mixin body() {
+  font-size: map-get($font-sizes, 'x-small');
+  line-height: map-get($line-heights, 'x-small');
+
+  @include media("medium", min) {
+    font-size: map-get($font-sizes, 'small');
+    line-height: map-get($line-heights, 'small');
+  }
+}
