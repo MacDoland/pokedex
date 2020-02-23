@@ -5,6 +5,7 @@ const express = require('express')
     , pokemonApiUrl = 'https://pokeapi.co/api/v2/pokemon/'
     , _ = require('lodash')
     , memoryCache = require('memory-cache')
+    // , fs = require('fs')
     , cacheKey = "pokemons"
     , cacheDuration = 3600000
     , port = process.env.port || process.env.PORT || 8083
@@ -32,9 +33,6 @@ router.use(function (req, res, next) {
     next();
 });
 
-
-
-
 router.route('/pokemon/:id')
     .get(async (req, res) => {
         var pokemon = memoryCache.get(cacheKey) || {};
@@ -43,7 +41,7 @@ router.route('/pokemon/:id')
         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
         if (req.params.id && pokemon && pokemon[req.params.id]) {
-            console.log("requesting from memory");
+            console.log("requesting from memory - pokemon: ", req.params.id);
             res.json({
                 status: 'success',
                 message: 'pokemon successfully',
@@ -53,36 +51,41 @@ router.route('/pokemon/:id')
         else if (req.params.id) {
             console.log("requesting from pokemon api - pokemon: ", req.params.id);
 
-            apiService.get(pokemonApiUrl + req.params.id).then((response) => {
-                let data = {
-                    id: response.data.id,
-                    name: response.data.name,
-                    imageUrl: response.data.sprites.front_default,
-                    type: response.data.types.map((item) => {
-                        return item.type.name;
-                    })
-                }
-
-                apiService.get(response.data.species.url).then((response) => {
-                    let textEntries = response.data.flavor_text_entries;
-                    let filteredEntries = textEntries.filter((entry) => entry.language.name === 'en');
-
-                    if (filteredEntries.length > 0) {
-                        data.description = filteredEntries[0].flavor_text; //maybe do  safe get
+            apiService.get(pokemonApiUrl + req.params.id).
+                then((response) => {
+                    let data = {
+                        id: response.data.id,
+                        name: response.data.name,
+                        imageUrl: response.data.sprites.front_default,
+                        type: response.data.types.map((item) => {
+                            return item.type.name;
+                        })
                     }
 
-                    pokemon[data.id] = data;
+                    apiService.get(response.data.species.url).then((response) => {
+                        let textEntries = response.data.flavor_text_entries;
+                        let filteredEntries = textEntries.filter((entry) => entry.language.name === 'en');
 
-                    memoryCache.put(cacheKey, pokemon, cacheDuration);
+                        if (filteredEntries.length > 0) {
+                            data.description = filteredEntries[0].flavor_text; //maybe do  safe get
+                        }
 
-                    console.log("Sending back a pokemons");
-                    res.json({
-                        status: 'success',
-                        message: 'pokemon successfully retrieved',
-                        data: data
+                        pokemon[data.id] = data;
+
+                        memoryCache.put(cacheKey, pokemon, cacheDuration);
+
+                        console.log("Sending back a pokemons");
+                        res.json({
+                            status: 'success',
+                            message: 'pokemon successfully retrieved',
+                            data: data
+                        });
+                    }).catch((error) => {
+                        console.error(error);
                     });
+                }).catch((error) => {
+                    console.error(error);
                 });
-            });
 
 
             // await axios(pokemonApiUrl + req.params.id)

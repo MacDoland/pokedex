@@ -1,5 +1,7 @@
 const axios = require('axios');
 const queue = require('./queue');
+const throttledQueue = require('throttled-queue');
+var throttle = throttledQueue(80, 60000, true)
 
 class APIService {
     constructor(callLimit, refreshRate) {
@@ -9,15 +11,19 @@ class APIService {
         this.pendingRequestQueue = new queue.Queue();
         this.requestHistoryQueue = new queue.Queue();
         this.queueProcessingComplete = true;
-      //  this._checkQueue();
+        //  this._checkQueue();
 
     }
 
     _makeRequest(request) {
-        axios(request.requestUrl)
-            .then(request.resolveCallBack);
-
-        this.requestHistoryQueue.enqueue(new Date());
+        throttle(() => {
+            axios(request.requestUrl)
+                .then(
+                    request.resolveCallBack,
+                    request.rejectCallBack
+                );
+        });
+        // this.requestHistoryQueue.enqueue(new Date());
     }
 
     _processRequest(request) {
@@ -45,7 +51,7 @@ class APIService {
 
         //     // if (this.queueProcessingComplete) {
         //     //     //begin queue processing
-                
+
         //     //     this.queueProcessingComplete = false;
         //     // }
         // }
@@ -54,7 +60,7 @@ class APIService {
         //     this.queueProcessingComplete = true;
         // }
 
-        if(this.pendingRequestQueue.size > 0) {
+        if (this.pendingRequestQueue.size > 0) {
             this._processRequest(this.pendingRequestQueue.dequeue());
         }
 
