@@ -8,9 +8,14 @@ class FetchService {
         };
 
         return new Promise((resolve, reject) => {
+            console.log("FetchService","fetching", url);
             fetch(url, config)
             .then((response) => {
+                console.log("FetchService","fetching", url,"complete");
                 resolve(response.json());
+            },
+            (error) => {
+                reject(error);
             })
         });
     }

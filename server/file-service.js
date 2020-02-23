@@ -1,8 +1,8 @@
-const fs = require('fs');
+var fs = require('fs');
 
 class FileService {
 
-    static loadFile(path) {
+    static readFile(path) {
         return new Promise((resolve, reject) => {
             fs.readFile(path, (error, data) => {
                 if (error) {
@@ -17,7 +17,7 @@ class FileService {
 
     static writeFile(path, data) {
         return new Promise((resolve, reject) => {
-            fs.writeFile(path, data, (error) => {
+            fs.writeFile(path, JSON.stringify(data), (error) => {
                 if (error) {
                     reject(error)
                 }
@@ -29,4 +29,4 @@ class FileService {
     }
 }
 
-modules.exports = FileService;
+module.exports = FileService;

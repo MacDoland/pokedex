@@ -20,12 +20,12 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    margin-bottom: -20px;
     position: relative;
-    z-index:200;
+    z-index: 200;
 
     .c-number-badge {
-        margin-right: 10px;
+      margin-right: 10px;
+      margin-bottom: -20px;
     }
   }
 

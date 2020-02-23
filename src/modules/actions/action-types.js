@@ -1,0 +1,4 @@
+export default {
+    ADD_NEW_POKEMONS: "ADD_NEW_POKEMONS",
+    CHANGE_MIN_RANGE: "CHANGE_MIN_RANGE"
+  };
