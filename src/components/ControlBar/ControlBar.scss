@@ -1,0 +1,50 @@
+@import "../../scss/settings.scss";
+
+.c-control-bar {
+  background-color: s-color("white");
+  box-sizing: border-box;
+  color: s-color("black");
+  min-height: 200px;
+  margin-bottom: 40px;
+  padding: 40px;
+  width: 100%;
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0 40px;
+
+    @include media("medium", min) {
+      flex-direction: row;
+    }
+  }
+
+  &__heading {
+    margin: 0;
+    text-align: left;
+  }
+
+  &__controls {
+    display: flex;
+    flex-direction: column;
+    margin: 40px 0;
+    @include media("medium", min) {
+      flex-direction: row;
+    }
+  }
+
+  &__controls-types {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+    justify-content: flex-start;
+    margin: 40px 0;
+
+    @include media("medium", min) {
+      margin: 0 40px;
+    }
+  }
+}
