@@ -13,6 +13,8 @@ import { distinctFilter } from './modules/filters/filters';
 import config from './config/config';
 import PokeTree from './modules/data-structures/poketree';
 
+require('intersection-observer');
+
 const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 const min = config.pokemonMinRange || 1;

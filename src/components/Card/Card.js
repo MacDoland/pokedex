@@ -1,11 +1,12 @@
 import React from 'react';
 import './Card.scss';
+import { connect } from 'react-redux'
 import NumberBadge from '../NumberBadge/NumberBadge';
 import TypeBadge from '../TypeBadge/TypeBadge';
 import toggleTypeFilter from '../../modules/actions/pokemon/toggleTypeFilter.action';
-import { connect } from 'react-redux'
+import { ViewportImage } from '../Image/Image';
 
-function createTypeClassName(type) {
+const createTypeClassName = (type) => {
     if (Array.isArray(type)) {
         return type.join('-').toLowerCase();
     }
@@ -14,23 +15,24 @@ function createTypeClassName(type) {
     }
 }
 
-function Card(props) {
+const Card = (props) => {
+    const { id, name, type, pokemon, description, imageUrl, dispatch } = props;
     return (
-        <div className={"c-card c-card--" + createTypeClassName(props.type)}>
+        <div className={"c-card c-card--" + createTypeClassName(type)}>
             <header className="c-card__header">
-                <h2 className="c-card__name">{props.name}</h2>
-                <NumberBadge number={props.id} />
+                <h2 className="c-card__name">{name}</h2>
+                <NumberBadge number={id} />
             </header>
-            <img className="c-card__image" src={props.imageUrl} alt="Bulbasausr" />
+            <ViewportImage src={imageUrl} alt={name} />
             <div className="c-card__type">
                 {
-                    props.type.map((type) => {
-                        return <TypeBadge key={type} type={type} isSelected={props.pokemon.filteredTypes.includes(type)} onClick={() => { props.dispatch(toggleTypeFilter(type))}} />
+                    type.map((type) => {
+                        return <TypeBadge key={type} type={type} isSelected={pokemon.filteredTypes.includes(type)} onClick={() => { dispatch(toggleTypeFilter(type)) }} />
                     })
                 }
             </div>
             <div className="c-card__description">
-                <p>{props.description}</p>
+                <p>{description}</p>
             </div>
         </div>
     );
