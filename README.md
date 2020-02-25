@@ -1,5 +1,11 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## API
+
+To run the API that returns the data, run:
+
+### `node ./server/pokemon-api.js`
+
 ## Available Scripts
 
 In the project directory, you can run:

@@ -2,6 +2,8 @@ import React from 'react';
 import './Card.scss';
 import NumberBadge from '../NumberBadge/NumberBadge';
 import TypeBadge from '../TypeBadge/TypeBadge';
+import toggleTypeFilter from '../../modules/actions/pokemon/toggleTypeFilter.action';
+import { connect } from 'react-redux'
 
 function createTypeClassName(type) {
     if (Array.isArray(type)) {
@@ -23,7 +25,7 @@ function Card(props) {
             <div className="c-card__type">
                 {
                     props.type.map((type) => {
-                        return <TypeBadge key={type} type={type} />
+                        return <TypeBadge key={type} type={type} isSelected={props.pokemon.filteredTypes.includes(type)} onClick={() => { props.dispatch(toggleTypeFilter(type))}} />
                     })
                 }
             </div>
@@ -34,4 +36,10 @@ function Card(props) {
     );
 }
 
-export default Card;
+const mapStateToProps = function (state) {
+    return {
+        pokemon: state.pokemon
+    }
+}
+
+export default connect(mapStateToProps)(Card);

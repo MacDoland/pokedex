@@ -8,13 +8,22 @@ import reducer from './modules/reducers/reducer';
 import addNewPokemon from './modules/actions/pokemon/addPokemons.action';
 import addPokemonTypes from './modules/actions/pokemon/addPokemonTypes.action';
 import PokemonService from './services/pokemon-service';
-
-import {distinctFilter} from './modules/filters/filters';
-
+import { distinctFilter } from './modules/filters/filters';
+import config from './config/config';
+import Tree from './modules/data-structures/string-tree';
 
 const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
-PokemonService.getPokemons(1, 300).then((pokemons) => {
+const min = config.pokemonMinRange || 1;
+const max = config.pokemonMaxRange || 807;
+
+let state = store.getState();
+
+
+let tree = new Tree(["joe", "john"]);
+console.log(tree);
+
+PokemonService.getPokemons(state.pokemon.pokemonStartIndex, state.pokemon.pokemonEndIndex).then((pokemons) => {
     store.dispatch(addNewPokemon(pokemons.data));
 
     let types = pokemons.data.slice(0).map(item => item.type);
@@ -29,7 +38,6 @@ PokemonService.getPokemons(1, 300).then((pokemons) => {
     store.dispatch(addPokemonTypes(mergedTypes));
 });
 
-store.subscribe(() => console.log(store.getState()));
 
 
 

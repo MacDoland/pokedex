@@ -62,9 +62,4 @@ $line-heights: (
 @mixin body() {
   font-size: map-get($font-sizes, 'x-small');
   line-height: map-get($line-heights, 'x-small');
-
-  @include media("medium", min) {
-    font-size: map-get($font-sizes, 'small');
-    line-height: map-get($line-heights, 'small');
-  }
 }
