@@ -10,15 +10,11 @@ import addPokeTree from './modules/actions/pokemon/addPokeTree.action';
 import addPokemonTypes from './modules/actions/pokemon/addPokemonTypes.action';
 import PokemonService from './services/pokemon-service';
 import { distinctFilter } from './modules/filters/filters';
-import config from './config/config';
 import PokeTree from './modules/data-structures/poketree';
 
 require('intersection-observer');
 
 const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
-
-const min = config.pokemonMinRange || 1;
-const max = config.pokemonMaxRange || 807;
 
 let state = store.getState();
 

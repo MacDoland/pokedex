@@ -52,7 +52,7 @@ const pokemonReducer = (state = defaultState, action) => {
       let filteredTypes = state.filteredTypes.slice();
 
       if (filteredTypes.includes(action.payload)) {
-        filteredTypes = filteredTypes.filter((type) => type != action.payload);
+        filteredTypes = filteredTypes.filter((type) => type !== action.payload);
       }
       else {
         filteredTypes.push(action.payload);

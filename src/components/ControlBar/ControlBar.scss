@@ -6,8 +6,12 @@
   color: s-color("black");
   min-height: 200px;
   margin-bottom: 40px;
-  padding: 40px;
+  padding: 0 40px;
   width: 100%;
+
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0 10px 5px 0px rgba(0, 0, 0, 0.75);
 
   &__inner {
     display: flex;
@@ -21,6 +25,12 @@
     }
   }
 
+  &__header-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   &__heading {
     margin: 0;
     text-align: left;
@@ -29,9 +39,18 @@
   &__controls {
     display: flex;
     flex-direction: column;
+    align-items: flex-end;
     margin: 40px 0;
+    max-width: 400px;
     @include media("medium", min) {
-      flex-direction: row;
+      flex-direction: column;
+    }
+
+    input {
+      font-size: 16px;
+      margin: 20px 0;
+      padding: 5px;
+      width: 100%;
     }
   }
 
@@ -44,12 +63,16 @@
     margin: 40px 0;
 
     @include media("medium", min) {
-      margin: 0 40px;
+      margin: 0;
     }
   }
 
   h1 + p {
     margin-top: 0;
+  }
+
+  p {
+    margin: 0;
   }
 
 }
