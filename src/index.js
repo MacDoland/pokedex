@@ -6,11 +6,12 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './modules/reducers/reducer';
 import addNewPokemon from './modules/actions/pokemon/addPokemons.action';
+import addPokeTree from './modules/actions/pokemon/addPokeTree.action';
 import addPokemonTypes from './modules/actions/pokemon/addPokemonTypes.action';
 import PokemonService from './services/pokemon-service';
 import { distinctFilter } from './modules/filters/filters';
 import config from './config/config';
-import Tree from './modules/data-structures/string-tree';
+import PokeTree from './modules/data-structures/poketree';
 
 const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
@@ -19,12 +20,9 @@ const max = config.pokemonMaxRange || 807;
 
 let state = store.getState();
 
-
-let tree = new Tree(["joe", "john"]);
-console.log(tree);
-
 PokemonService.getPokemons(state.pokemon.pokemonStartIndex, state.pokemon.pokemonEndIndex).then((pokemons) => {
     store.dispatch(addNewPokemon(pokemons.data));
+    store.dispatch(addPokeTree(new PokeTree(pokemons.data, (item) => item.name)));
 
     let types = pokemons.data.slice(0).map(item => item.type);
 

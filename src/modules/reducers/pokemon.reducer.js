@@ -1,25 +1,28 @@
 import ActionTypes from '../actions/action-types';
+import PokeTree from '../data-structures/poketree';
 import { filterByRange, filterByType } from '../filters/filters';
 
 const defaultState = {
   collection: [],
+  pokeTree: new PokeTree(),
   minRange: 1,
   maxRange: 807,
   pokemonStartIndex: 1,
   pokemonEndIndex: 807,
   types: [],
-  filteredTypes: []
+  filteredTypes: [],
+  nameSearchString: ''
 };
 
 const getFilteredPokemonSelector = (state) => {
   let items = [];
 
-  if(Array.isArray(state.pokemon.collection)){
-    items = state.pokemon.collection.slice();
+  if (Array.isArray(state.pokemon.collection)) {
+    items = state.pokemon.pokeTree.search(state.pokemon.nameSearchString).slice();
     items = filterByType(items, state.pokemon.filteredTypes);
     items = filterByRange(items, state.pokemon.maxRange);
   }
-  
+
   return items;
 }
 
@@ -29,6 +32,11 @@ const pokemonReducer = (state = defaultState, action) => {
       return {
         ...state,
         collection: action.payload
+      }
+    case ActionTypes.ADD_POKETREE:
+      return {
+        ...state,
+        pokeTree: action.payload
       }
     case ActionTypes.CHANGE_MAX_RANGE:
       return {
@@ -43,16 +51,21 @@ const pokemonReducer = (state = defaultState, action) => {
     case ActionTypes.TOGGLE_TYPE_FILTER:
       let filteredTypes = state.filteredTypes.slice();
 
-      if(filteredTypes.includes(action.payload)){
+      if (filteredTypes.includes(action.payload)) {
         filteredTypes = filteredTypes.filter((type) => type != action.payload);
       }
-      else{
+      else {
         filteredTypes.push(action.payload);
       }
 
       return {
         ...state,
         filteredTypes: filteredTypes
+      }
+    case ActionTypes.FILTER_BY_NAME:
+      return {
+        ...state,
+        nameSearchString: action.payload
       }
     default:
       return {

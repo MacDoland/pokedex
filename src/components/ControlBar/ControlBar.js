@@ -3,6 +3,7 @@ import './ControlBar.scss';
 import { connect } from 'react-redux'
 import changeMaxRange from '../../modules/actions/pokemon/changeMaxRange.action';
 import toggleTypeFilter from '../../modules/actions/pokemon/toggleTypeFilter.action';
+import searchByName from '../../modules/actions/pokemon/searchByName.action';
 import { getFilteredPokemonSelector } from '../../modules/reducers/pokemon.reducer';
 import TypeBadge from '../TypeBadge/TypeBadge';
 
@@ -10,9 +11,14 @@ function ControlBar(props) {
     return (
         <div className="c-control-bar">
             <div className="c-control-bar__inner">
-                <h1 className="c-control-bar__heading">{props.heading}</h1>
-                <p>Pokemon visible: { props.filteredPokemon.length }</p>
+                <div>
+                    <h1 className="c-control-bar__heading">{props.heading}</h1>
+                    <p>Pokemon visible: {props.filteredPokemon.length}</p>
+                </div>
                 <div className="c-control-bar__controls">
+                    <input placeholder="filter by name" type="text" value={props.pokemon.nameSearchString} onChange={(e) => {
+                        props.dispatch(searchByName(e.target.value));
+                    }} />
                     <div className="c-control-bar__controls-types">
                         {
                             props.pokemon.types.map((type) => {

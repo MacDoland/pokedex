@@ -20,10 +20,6 @@
     width: 100%;
   }
 
-  &--is-selected {
-    border-color: s-color("card-yellow");
-  }
-
   &--bug {
     background-color: s-color("bug");
   }
@@ -77,5 +73,10 @@
   }
   &--water {
     background-color: s-color("water");
+  }
+
+  &--is-selected {
+    border-color: s-color("card-yellow");
+    background-color: s-color("black");
   }
 }
