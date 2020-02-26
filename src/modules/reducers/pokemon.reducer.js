@@ -20,7 +20,7 @@ const getFilteredPokemonSelector = (state) => {
   let items = [];
 
   if (Array.isArray(state.pokemon.collection)) {
-    items = state.pokemon.pokeTree.search(state.pokemon.nameSearchString).slice();
+    items = state.pokemon.pokeTree.search(state.pokemon.nameSearchString.toLowerCase()).slice();
     items = filterByType(items, state.pokemon.filteredTypes);
     items = filterByRange(items, state.pokemon.maxRange)
     items = mergeSort(items, (item) => item.id, (a, b) => a < b);
