@@ -1,0 +1,16 @@
+html, body {
+  background-color: #282c34;
+}
+
+.c-app{
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  align-content: flex-start;
+  justify-content: center;
+}
+
