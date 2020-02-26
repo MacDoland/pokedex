@@ -1,6 +1,6 @@
 import { distinctFilter, itemLengthFilter, notUndefinedFilter } from '../filters/filters';
 
-class PokeTree {
+class Trie {
     constructor(items = [], getter = (item) => item) {
         if (Array.isArray(items) && items.length > 0) {
             this.maxTreeDepth = items.map(getter).reduce((a, b) => { return a.length > b.length ? a : b; }).length;
@@ -72,6 +72,6 @@ class PokeTreeNode {
 }
 
 
-export default PokeTree;
+export default Trie;
 
 

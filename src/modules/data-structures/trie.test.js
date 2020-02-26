@@ -1,8 +1,8 @@
-import PokeTree from './poketree';
+import Trie from './trie';
 
 test('When empty search PokeTree returns all items', () => {
     //arrange
-    let tree = new PokeTree(['a', 'b', 'c']);
+    let tree = new Trie(['a', 'b', 'c']);
     let expected = [];
     let expectedLength = 0;
 

@@ -1,11 +1,10 @@
 import ActionTypes from '../actions/action-types';
-import PokeTree from '../data-structures/poketree';
+import Trie from '../data-structures/trie';
 import { filterByRange, filterByType } from '../filters/filters';
 import mergeSort from '../sorts/merge.sort';
 
 const defaultState = {
-  collection: [],
-  pokeTree: new PokeTree(),
+  collection: new Trie(),
   minRange: 1,
   maxRange: 807,
   pokemonStartIndex: 1,
@@ -19,8 +18,8 @@ const defaultState = {
 const getFilteredPokemonSelector = (state) => {
   let items = [];
 
-  if (Array.isArray(state.pokemon.collection)) {
-    items = state.pokemon.pokeTree.search(state.pokemon.nameSearchString.toLowerCase()).slice();
+  if (state.pokemon.collection.search) {
+    items = state.pokemon.collection.search(state.pokemon.nameSearchString.toLowerCase()).slice();
     items = filterByType(items, state.pokemon.filteredTypes);
     items = filterByRange(items, state.pokemon.maxRange)
     items = mergeSort(items, (item) => item.id, (a, b) => a < b);
@@ -35,11 +34,6 @@ const pokemonReducer = (state = defaultState, action) => {
       return {
         ...state,
         collection: action.payload
-      }
-    case ActionTypes.ADD_POKETREE:
-      return {
-        ...state,
-        pokeTree: action.payload
       }
     case ActionTypes.CHANGE_MAX_RANGE:
       return {

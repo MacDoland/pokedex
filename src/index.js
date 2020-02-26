@@ -10,7 +10,7 @@ import addPokeTree from './modules/actions/pokemon/addPokeTree.action';
 import addPokemonTypes from './modules/actions/pokemon/addPokemonTypes.action';
 import PokemonService from './services/pokemon-service';
 import { distinctFilter } from './modules/filters/filters';
-import PokeTree from './modules/data-structures/poketree';
+import Trie from './modules/data-structures/trie';
 
 require('intersection-observer');
 
@@ -19,8 +19,7 @@ const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window
 let state = store.getState();
 
 PokemonService.getPokemons(state.pokemon.pokemonStartIndex, state.pokemon.pokemonEndIndex).then((pokemons) => {
-    store.dispatch(addNewPokemon(pokemons.data));
-    store.dispatch(addPokeTree(new PokeTree(pokemons.data, (item) => item.name)));
+    store.dispatch(addNewPokemon(new Trie(pokemons.data, (item) => item.name)));
 
     let types = pokemons.data.slice(0).map(item => item.type);
 
