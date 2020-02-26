@@ -2,6 +2,8 @@ import ActionTypes from '../actions/action-types';
 import Trie from '../data-structures/trie';
 import { filterByRange, filterByType } from '../filters/filters';
 import mergeSort from '../sorts/merge.sort';
+import { valueGetter, idGetter, nameGetter } from '../getters/getters';
+import { ascendingCompare, descendingCompare } from '../comparers/comparers';
 
 const defaultState = {
   collection: new Trie(),
@@ -15,14 +17,54 @@ const defaultState = {
   sortSelection: { value: ActionTypes.SORT_ID_ASCENDING, label: 'pokemon number ascending' }
 };
 
+const getSortGetter = (sortAction) => {
+  switch (sortAction) {
+    case ActionTypes.SORT_ID_ASCENDING:
+      return idGetter;
+    case ActionTypes.SORT_ID_DESCENDING:
+      return idGetter;
+    case ActionTypes.SORT_NAME_ASCENDING:
+      return nameGetter;
+    case ActionTypes.SORT_NAME_DESCENDING:
+      return nameGetter;
+    default:
+      return valueGetter;
+  }
+}
+
+const getSortComparer = (sortAction) => {
+  switch (sortAction) {
+    case ActionTypes.SORT_ID_ASCENDING:
+      return ascendingCompare;
+    case ActionTypes.SORT_ID_DESCENDING:
+      return descendingCompare;
+    case ActionTypes.SORT_NAME_ASCENDING:
+      return ascendingCompare;
+    case ActionTypes.SORT_NAME_DESCENDING:
+      return descendingCompare;
+    default:
+      return ascendingCompare;
+  }
+}
+
 const getFilteredPokemonSelector = (state) => {
-  let items = [];
+  let items = []
+    , sortAction
+    , sortGetter
+    , sortComparison;
 
   if (state.pokemon.collection.search) {
+    if (state.pokemon.sortSelection && state.pokemon.sortSelection.value) {
+      sortAction = state.pokemon.sortSelection.value;
+    }
+
+    sortGetter = getSortGetter(sortAction);
+    sortComparison = getSortComparer(sortAction);
+
     items = state.pokemon.collection.search(state.pokemon.nameSearchString.toLowerCase()).slice();
     items = filterByType(items, state.pokemon.filteredTypes);
     items = filterByRange(items, state.pokemon.maxRange)
-    items = mergeSort(items, (item) => item.id, (a, b) => a < b);
+    items = mergeSort(items, sortGetter, sortComparison);
   }
 
   return items;
