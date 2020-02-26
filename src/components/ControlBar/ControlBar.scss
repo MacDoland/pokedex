@@ -21,7 +21,7 @@
     margin: 0 auto;
     padding: 40px 40px 0;
 
-    @include media("medium", min) {
+    @include media("large", min) {
       align-items: flex-start;
       flex-direction: column;
     }
@@ -30,9 +30,14 @@
   &__header-group {
     align-items: baseline;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     width: 100%;
+
+    @include media("large", min) {
+      align-items: flex-start;
+      flex-direction: row;
+    }
 
     p {
       font-size: 24px;
@@ -54,30 +59,34 @@
 
     flex-direction: column;
     justify-content: space-between;
-    margin: 40px 0;
+    margin: 20px 0;
     text-align: left;
     width: 100%;
-    @include media("medium", min) {
+    @include media("large", min) {
       flex-direction: row;
     }
 
     input {
-      margin: 20px 0;
+      margin: 10px 0;
       padding: 5px;
       width: 100%;
     }
   }
-
   &__controls-types {
+    @include media("large", min) {
+      margin: 0 40px 0;
+    }
+  }
+  &__controls-type-icons {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     align-content: center;
     justify-content: flex-start;
-    margin: 40px 0;
+    margin: 10px 0;
 
-    @include media("medium", min) {
-      margin: 20px 0 0;
+    @include media("large", min) {
+      margin: 10px 0 0;
     }
   }
 
@@ -86,11 +95,14 @@
   }
 
   p {
-    margin: 0;
+    margin: 20px 0 0;
+    @include media("large", min) {
+      margin: 0;
+    }
   }
 
   .Dropdown-root {
-    margin: 20px 0;
+    margin: 10px 0 0;
     width: 400px;
     text-align: left;
   }

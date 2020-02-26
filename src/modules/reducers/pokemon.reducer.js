@@ -1,16 +1,16 @@
 import ActionTypes from '../actions/action-types';
-import Trie from '../data-structures/trie';
+import TrieStructure from '../data-structures/trie';
 import { filterByRange, filterByType } from '../filters/filters';
 import mergeSort from '../sorts/merge.sort';
 import { valueGetter, idGetter, nameGetter } from '../getters/getters';
 import { ascendingCompare, descendingCompare } from '../comparers/comparers';
 
 const defaultState = {
-  collection: new Trie(),
+  collection: new TrieStructure(),
   minRange: 1,
-  maxRange: 807,
+  maxRange: 151,
   pokemonStartIndex: 1,
-  pokemonEndIndex: 807,
+  pokemonEndIndex: 151,
   types: [],
   filteredTypes: [],
   nameSearchString: '',

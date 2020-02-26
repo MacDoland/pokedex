@@ -37,9 +37,9 @@ function ControlBar(props) {
                             props.dispatch(searchByName(e.target.value));
                         }} />
                     </div>
-                    <div>
+                    <div className="c-control-bar__controls-types">
                         <p>Filter by type</p>
-                        <div className="c-control-bar__controls-types">
+                        <div className="c-control-bar__controls-type-icons">
                             {
                                 props.pokemon.types.map((type) => {
                                     return <TypeBadge key={type} type={type} isSelected={props.pokemon.filteredTypes.includes(type)} onClick={() => { props.dispatch(toggleTypeFilter(type)) }} />
