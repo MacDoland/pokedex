@@ -33,7 +33,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "node ./server/pokemon-server",
+    "dev":  "npx npm-run-all -p server start"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -52,5 +54,6 @@
   },
   "devDependencies": {
     "node-sass": "^4.13.1"
-  }
+  },
+  "proxy": "http://localhost:8083"
 }
