@@ -6,9 +6,21 @@ import toggleTypeFilter from '../../modules/actions/pokemon/toggleTypeFilter.act
 import searchByName from '../../modules/actions/pokemon/searchByName.action';
 import { getFilteredPokemonSelector } from '../../modules/reducers/pokemon.reducer';
 import TypeBadge from '../TypeBadge/TypeBadge';
+import Dropdown from 'react-dropdown'
+import ActionTypes from '../../modules/actions/action-types';
+import defaultAction from '../../modules/actions/pokemon/default.action';
+import 'react-dropdown/style.css'
 import { throttle } from 'lodash';
 
 function ControlBar(props) {
+
+    const options = [
+        { value: ActionTypes.SORT_ID_ASCENDING, label: 'pokemon number ascending' },
+        { value: ActionTypes.SORT_ID_DESCENDING, label: 'pokemon number descending' },
+        { value: ActionTypes.SORT_NAME_ASCENDING, label: 'pokemon name ascending' },
+        { value: ActionTypes.SORT_NAME_DESCENDING, label: 'pokemon name descending' }
+    ]
+
     return (
         <div className="c-control-bar">
             <div className="c-control-bar__inner">
@@ -19,21 +31,31 @@ function ControlBar(props) {
                     }, 400)} /> / {props.pokemon.pokemonEndIndex}</p>
                 </div>
                 <div className="c-control-bar__controls">
-                    <input placeholder="filter by name" type="text" value={props.pokemon.nameSearchString} onChange={(e) => {
-                        props.dispatch(searchByName(e.target.value));
-                    }} />
-                    <p>Filter by type</p>
-                    <div className="c-control-bar__controls-types">
-                        
-                        {
-                            props.pokemon.types.map((type) => {
-                                return <TypeBadge key={type} type={type} isSelected={props.pokemon.filteredTypes.includes(type)} onClick={() => { props.dispatch(toggleTypeFilter(type)) }} />
-                            })
-                        }
+                    <div>
+                        <p>Filter by name</p>
+                        <input placeholder="filter by name" type="text" value={props.pokemon.nameSearchString} onChange={(e) => {
+                            props.dispatch(searchByName(e.target.value));
+                        }} />
+                    </div>
+                    <div>
+                        <p>Filter by type</p>
+                        <div className="c-control-bar__controls-types">
+                            {
+                                props.pokemon.types.map((type) => {
+                                    return <TypeBadge key={type} type={type} isSelected={props.pokemon.filteredTypes.includes(type)} onClick={() => { props.dispatch(toggleTypeFilter(type)) }} />
+                                })
+                            }
+                        </div>
+                    </div>
+                    <div>
+                        <p>Sort</p>
+                        <Dropdown options={options} value={props.pokemon.sortSelection}  onChange={(value) => {
+                            props.dispatch(defaultAction(ActionTypes.SORT_ID_ASCENDING, value));
+                        }} />
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 

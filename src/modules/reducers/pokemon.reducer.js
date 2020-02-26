@@ -1,6 +1,7 @@
 import ActionTypes from '../actions/action-types';
 import PokeTree from '../data-structures/poketree';
 import { filterByRange, filterByType } from '../filters/filters';
+import mergeSort from '../sorts/merge.sort';
 
 const defaultState = {
   collection: [],
@@ -11,7 +12,8 @@ const defaultState = {
   pokemonEndIndex: 807,
   types: [],
   filteredTypes: [],
-  nameSearchString: ''
+  nameSearchString: '',
+  sortSelection: { value: ActionTypes.SORT_ID_ASCENDING, label: 'pokemon number ascending' }
 };
 
 const getFilteredPokemonSelector = (state) => {
@@ -20,7 +22,8 @@ const getFilteredPokemonSelector = (state) => {
   if (Array.isArray(state.pokemon.collection)) {
     items = state.pokemon.pokeTree.search(state.pokemon.nameSearchString).slice();
     items = filterByType(items, state.pokemon.filteredTypes);
-    items = filterByRange(items, state.pokemon.maxRange);
+    items = filterByRange(items, state.pokemon.maxRange)
+    items = mergeSort(items, (item) => item.id, (a, b) => a < b);
   }
 
   return items;
@@ -66,6 +69,11 @@ const pokemonReducer = (state = defaultState, action) => {
       return {
         ...state,
         nameSearchString: action.payload
+      }
+    case ActionTypes.SORT_ID_ASCENDING:
+      return {
+        ...state,
+        sortSelection: action.payload
       }
     default:
       return {
