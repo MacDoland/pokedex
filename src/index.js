@@ -6,7 +6,6 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './modules/reducers/reducer';
 import addNewPokemon from './modules/actions/pokemon/addPokemons.action';
-import addPokeTree from './modules/actions/pokemon/addPokeTree.action';
 import addPokemonTypes from './modules/actions/pokemon/addPokemonTypes.action';
 import PokemonService from './services/pokemon-service';
 import { distinctFilter } from './modules/filters/filters';

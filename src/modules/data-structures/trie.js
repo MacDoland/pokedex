@@ -9,7 +9,8 @@ class Trie {
     }
 
     //operations on tree go here
-    search(searchString) {
+
+    search(searchString = '') {
 
         if (!this.nodes || typeof (searchString) !== "string" || searchString.length > this.maxTreeDepth) {
             return []; // we know there are no matches because the search string is longer than any words we hold
@@ -18,7 +19,6 @@ class Trie {
         if (searchString.length === 0) {
             return this.nodes.items;
         }
-
 
         let characters = searchString.split('');
 
@@ -36,7 +36,7 @@ class Trie {
         if (node && node.children && Object.keys(node.children).includes(key) && node.children[key].items) {
             return this.searchNodes(searchStrings, node.children[key]);
         }
-        
+
         return [];
     }
 }
@@ -47,7 +47,6 @@ class PokeTreeNode {
             .filter((value, index, self) => {
                 return notUndefinedFilter(getter(value), index, self);
             });
-
 
         this.children = {};
 
