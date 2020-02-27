@@ -10,10 +10,6 @@ To run the API that returns the data, run:
 
 In the project directory, you can run:
 
-### `npm run dev`
-
-This runs both the app and server
-
 ### `npm start`
 
 Runs the app in the development mode.<br />

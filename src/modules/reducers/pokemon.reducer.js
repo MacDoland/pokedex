@@ -10,7 +10,7 @@ const defaultState = {
   minRange: 1,
   maxRange: 151,
   pokemonStartIndex: 1,
-  pokemonEndIndex: 151,
+  pokemonEndIndex: 807,
   types: [],
   filteredTypes: [],
   nameSearchString: '',

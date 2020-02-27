@@ -1,4 +1,4 @@
-const pokeDataFilePath = './server/poke-data.json'
+const pokeDataFilePath = './poke-data.json'
     , FileService = require('./file-service')
     , pokemonApiUrl = 'https://pokeapi.co/api/v2/pokemon/'
     , APIService = require('./api-service');

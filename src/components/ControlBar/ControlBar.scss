@@ -40,7 +40,11 @@
     }
 
     p {
-      font-size: 24px;
+      font-size: 16px;
+
+      @include media("large", min) {
+        font-size: 24px;
+      }
     }
 
     input {
@@ -70,6 +74,11 @@
       margin: 10px 0;
       padding: 5px;
       width: 100%;
+      font-size: 16px;
+      
+      @include media("large", min) {
+        font-size: 24px;
+      }
     }
   }
   &__controls-types {
@@ -103,10 +112,23 @@
 
   .Dropdown-root {
     margin: 10px 0 0;
-    width: 400px;
+    width: 100%;
     text-align: left;
+    font-size: 16px;
+
+    @include media("large", min) {
+      font-size: 24px;
+    }
+
+    @include media("large", min) {
+      width: 400px;
+    }
   }
   .Dropdown-menu {
     font-size: 16px;
+
+    @include media("large", min) {
+      font-size: 16px;
+    }
   }
 }

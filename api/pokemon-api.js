@@ -48,9 +48,12 @@ router.route('/pokemons/:min/:max')
                     console.error(error);
                 };
         });
-
-
     });
+
+    app.get('/hello', function (req, res) {
+        res.json("Hello World!");
+    });
+    
 
 var server = app.listen(port, function () {
     var host = server.address().address
