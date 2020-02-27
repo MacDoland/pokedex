@@ -21,16 +21,16 @@ function ControlBar(props) {
         { value: ActionTypes.SORT_NAME_DESCENDING, label: 'pokemon name descending' }
     ]
 
-    const { heading, pokemon, dispatch } = props;
+    const { heading, pokemon, dispatch, filteredPokemon } = props;
 
     return (
         <div className="c-control-bar">
             <div className="c-control-bar__inner">
                 <div className="c-control-bar__header-group">
                     <h1 className="c-control-bar__heading">{heading}</h1>
-                    <p>Pokemon loaded: <input type="number" min={pokemon.pokemonStartIndex} max={pokemon.pokemonEndIndex} value={pokemon.maxRange} className="c-control-bar__controls-slider" id="range" onChange={throttle((e) => {
-                        dispatch(changeMaxRange(e.target.value));
-                    }, 400)} /> / {pokemon.pokemonEndIndex}</p>
+                    <p>Pokemon visible: {filteredPokemon.length} / <input type="number" min={pokemon.pokemonStartIndex} max={pokemon.pokemonEndIndex} value={pokemon.maxRange} className="c-control-bar__controls-slider" id="range" onChange={throttle((e) => {
+                        dispatch(changeMaxRange(e.target.value > pokemon.pokemonEndIndex ? pokemon.pokemonEndIndex : e.target.value));
+                    }, 400)} /></p>
                 </div>
                 <div className="c-control-bar__controls">
                     <div>
