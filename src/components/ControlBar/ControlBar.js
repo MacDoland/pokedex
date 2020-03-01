@@ -43,7 +43,7 @@ function ControlBar(props) {
                         <div className="c-control-bar__controls-type-icons">
                             {
                                 pokemon.types.map((type) => {
-                                    return <TypeBadge key={type} type={type} />
+                                    return <TypeBadge key={'control-bar-' + type } type={type} />
                                 })
                             }
                         </div>

@@ -26,7 +26,7 @@ const Card = (props) => {
             <div className="c-card__type">
                 {
                     type.map((type) => {
-                        return <TypeBadge key={type} type={type} />
+                        return <TypeBadge key={ id + type } type={type} />
                     })
                 }
             </div>
@@ -41,10 +41,8 @@ Card.propTypes = {
     id: PropTypes.number.isRequired,
     description: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
+    type: PropTypes.array.isRequired,
     imageUrl: PropTypes.string.isRequired,
-    dispatch: PropTypes.func.isRequired,    
-    selectedTypes: PropTypes.array.isRequired
 }
 
 export default Card;
