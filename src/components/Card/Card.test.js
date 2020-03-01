@@ -25,13 +25,13 @@ test('With example Pokemon - Card renders expected', () => {
 
     //Act
     const { container } = reduxRender(<Card {...mockPokemon} />);
+   
+    //Assert
     const idElement = container.querySelector('.c-number-badge span');
     const nameElement = container.querySelector('.c-card__name');
     const descriptionElement = container.querySelector('.c-card__description p');
     const imageElement = container.querySelector('.c-card__image img');
 
-
-    //Assert
     expect(idElement).toHaveTextContent(mockPokemon.id);
     expect(nameElement).toHaveTextContent(mockPokemon.name);
     expect(descriptionElement).toHaveTextContent(mockPokemon.description);
