@@ -13,35 +13,36 @@ const reduxRender = (component, store = createStore(pokemonReducer, defaultState
     }
 }
 
-test('With example Pokemon - Card renders expected', () => {
-    //Arrange
-    let mockPokemon = {
-        id: 12,
-        name: "Examplemon",
-        description: "This is an example Pokemon",
-        type: ['fire'],
-        imageUrl: './images/example-pokemon.png'
-    }
+describe('Card', () => {
+    test('With example Pokemon - component renders expected', () => {
+        //Arrange
+        let mockPokemon = {
+            id: 12,
+            name: "Examplemon",
+            description: "This is an example Pokemon",
+            type: ['fire'],
+            imageUrl: './images/example-pokemon.png'
+        }
 
-    //Act
-    const { container } = reduxRender(<Card {...mockPokemon} />);
-   
-    //Assert
-    const idElement = container.querySelector('.c-number-badge span')
-    , nameElement = container.querySelector('.c-card__name')
-    , descriptionElement = container.querySelector('.c-card__description p')
-    , imageElement = container.querySelector('.c-card__image img');
+        //Act
+        const { container } = reduxRender(<Card {...mockPokemon} />);
 
-    let typeElement;
+        //Assert
+        const idElement = container.querySelector('.c-number-badge span')
+            , nameElement = container.querySelector('.c-card__name')
+            , descriptionElement = container.querySelector('.c-card__description p')
+            , imageElement = container.querySelector('.c-card__image img');
 
-    expect(idElement).toHaveTextContent(mockPokemon.id);
-    expect(nameElement).toHaveTextContent(mockPokemon.name);
-    expect(descriptionElement).toHaveTextContent(mockPokemon.description);
-    expect(imageElement).toHaveAttribute('src', mockPokemon.imageUrl);
+        let typeElement;
 
-    mockPokemon.type.forEach((type) => {
-        typeElement = container.querySelector('.c-type-badge--' + type);
-        expect(typeElement).toHaveAttribute('title', 'Type: ' + type);
+        expect(idElement).toHaveTextContent(mockPokemon.id);
+        expect(nameElement).toHaveTextContent(mockPokemon.name);
+        expect(descriptionElement).toHaveTextContent(mockPokemon.description);
+        expect(imageElement).toHaveAttribute('src', mockPokemon.imageUrl);
+
+        mockPokemon.type.forEach((type) => {
+            typeElement = container.querySelector('.c-type-badge--' + type);
+            expect(typeElement).toHaveAttribute('title', 'Type: ' + type);
+        });
     });
-
 });
