@@ -30,7 +30,7 @@ TypeBadge.propTypes = {
 
 const mapStateToProps = function (state) {
     return {
-        selectedTypes: state.pokemon.filteredTypes
+        selectedTypes: state.filteredTypes
     }
 }
 

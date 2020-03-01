@@ -53,22 +53,22 @@ const getFilteredPokemonSelector = (state) => {
     , sortGetter
     , sortComparison;
 
-  if (state.pokemon.collection.search) {
-    if (state.pokemon.sortSelection && state.pokemon.sortSelection.value) {
-      sortAction = state.pokemon.sortSelection.value;
+  if (state.collection.search) {
+    if (state.sortSelection && state.sortSelection.value) {
+      sortAction = state.sortSelection.value;
     }
 
     sortGetter = getSortGetter(sortAction);
     sortComparison = getSortComparer(sortAction);
 
     performance.mark("search");
-    items = state.pokemon.collection.search(state.pokemon.nameSearchString.toLowerCase()).slice();
+    items = state.collection.search(state.nameSearchString.toLowerCase()).slice();
     performance.mark("search:end");
     performance.mark("filter:type");
-    items = filterByType(items, state.pokemon.filteredTypes);
+    items = filterByType(items, state.filteredTypes);
     performance.mark("filter:type:end");
     performance.mark("filter:range");
-    items = filterByRange(items, state.pokemon.maxRange)
+    items = filterByRange(items, state.maxRange)
     performance.mark("filter:range:end");
     performance.mark("sort");
     items = mergeSort(items, sortGetter, sortComparison);

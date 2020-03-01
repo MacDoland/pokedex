@@ -2,7 +2,7 @@ import React from 'react';
 import './Card.scss';
 import NumberBadge from '../NumberBadge/NumberBadge';
 import TypeBadge from '../TypeBadge/TypeBadge';
-import { ViewportImage } from '../Image/Image';
+import { Image } from '../Image/Image';
 import PropTypes from 'prop-types';
 
 const createTypeClassName = (type) => {
@@ -22,7 +22,7 @@ const Card = (props) => {
                 <h2 className="c-card__name">{name}</h2>
                 <NumberBadge number={id} />
             </header>
-            <ViewportImage src={imageUrl} alt={name} />
+            <Image src={imageUrl} alt={name} />
             <div className="c-card__type">
                 {
                     type.map((type) => {

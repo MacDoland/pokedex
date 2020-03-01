@@ -20,21 +20,21 @@ function ControlBar(props) {
         { value: ActionTypes.SORT_NAME_DESCENDING, label: 'pokemon name descending' }
     ]
 
-    const { heading, pokemon, dispatch, filteredPokemon } = props;
+    const { heading, state, dispatch, filteredPokemon } = props;
 
     return (
         <div className="c-control-bar">
             <div className="c-control-bar__inner">
                 <div className="c-control-bar__header-group">
                     <h1 className="c-control-bar__heading">{heading}</h1>
-                    <p>Pokemon visible: {filteredPokemon.length} / <input type="number" min={pokemon.pokemonStartIndex} max={pokemon.pokemonEndIndex} value={pokemon.maxRange} className="c-control-bar__controls-slider" id="range" onChange={throttle((e) => {
-                        dispatch(changeMaxRange(e.target.value > pokemon.pokemonEndIndex ? pokemon.pokemonEndIndex : e.target.value));
+                    <p>Pokemon visible: {filteredPokemon.length} / <input type="number" min={state.pokemonStartIndex} max={state.pokemonEndIndex} value={state.maxRange} className="c-control-bar__controls-slider" id="range" onChange={throttle((e) => {
+                        dispatch(changeMaxRange(e.target.value > state.pokemonEndIndex ? state.pokemonEndIndex : e.target.value));
                     }, 400)} /></p>
                 </div>
                 <div className="c-control-bar__controls">
                     <div>
                         <p>Filter by name</p>
-                        <input placeholder="filter by name" type="text" value={pokemon.nameSearchString} onChange={(e) => {
+                        <input placeholder="filter by name" type="text" value={state.nameSearchString} onChange={(e) => {
                             dispatch(searchByName(e.target.value));
                         }} />
                     </div>
@@ -42,7 +42,7 @@ function ControlBar(props) {
                         <p>Filter by type</p>
                         <div className="c-control-bar__controls-type-icons">
                             {
-                                pokemon.types.map((type) => {
+                                state.types.map((type) => {
                                     return <TypeBadge key={'control-bar-' + type } type={type} />
                                 })
                             }
@@ -50,7 +50,7 @@ function ControlBar(props) {
                     </div>
                     <div>
                         <p>Sort</p>
-                        <Dropdown options={options} value={pokemon.sortSelection}  onChange={(value) => {
+                        <Dropdown options={options} value={state.sortSelection}  onChange={(value) => {
                             dispatch(defaultAction(ActionTypes.SORT_ID_ASCENDING, value));
                         }} />
                     </div>
@@ -62,7 +62,7 @@ function ControlBar(props) {
 
 const mapStateToProps = function (state) {
     return {
-        pokemon: state.pokemon,
+        state: state,
         filteredPokemon: getFilteredPokemonSelector(state)
     }
 }
