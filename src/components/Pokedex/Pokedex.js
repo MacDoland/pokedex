@@ -4,9 +4,11 @@ import Card from '../Card/Card';
 import { getFilteredPokemonSelector } from '../../modules/reducers/pokemon.reducer';
 
 const Pokedex = (props) => {
+  const { pokemon } = props;
+
    return (
-    props.pokemon.map((pokemon) => {
-      return <Card key={pokemon.id} {...pokemon} />
+    pokemon.map((model) => {
+      return <Card key={pokemon.id} {...model} />
     })
   );
 }

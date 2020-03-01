@@ -1,10 +1,9 @@
 import React from 'react';
 import './Card.scss';
-import { connect } from 'react-redux'
 import NumberBadge from '../NumberBadge/NumberBadge';
 import TypeBadge from '../TypeBadge/TypeBadge';
-import toggleTypeFilter from '../../modules/actions/pokemon/toggleTypeFilter.action';
 import { ViewportImage } from '../Image/Image';
+import PropTypes from 'prop-types';
 
 const createTypeClassName = (type) => {
     if (Array.isArray(type)) {
@@ -16,7 +15,7 @@ const createTypeClassName = (type) => {
 }
 
 const Card = (props) => {
-    const { id, name, type, pokemon, description, imageUrl, dispatch } = props;
+    const { id, name, type, description, imageUrl } = props;
     return (
         <div className={"c-card c-card--" + createTypeClassName(type)}>
             <header className="c-card__header">
@@ -27,7 +26,7 @@ const Card = (props) => {
             <div className="c-card__type">
                 {
                     type.map((type) => {
-                        return <TypeBadge key={type} type={type} isSelected={pokemon.filteredTypes.includes(type)} onClick={() => { dispatch(toggleTypeFilter(type)) }} />
+                        return <TypeBadge key={type} type={type} />
                     })
                 }
             </div>
@@ -38,10 +37,14 @@ const Card = (props) => {
     );
 }
 
-const mapStateToProps = function (state) {
-    return {
-        pokemon: state.pokemon
-    }
+Card.propTypes = {
+    id: PropTypes.number.isRequired,
+    description: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    imageUrl: PropTypes.string.isRequired,
+    dispatch: PropTypes.func.isRequired,    
+    selectedTypes: PropTypes.array.isRequired
 }
 
-export default connect(mapStateToProps)(Card);
+export default Card;

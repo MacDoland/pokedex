@@ -2,7 +2,6 @@ import React from 'react';
 import './ControlBar.scss';
 import { connect } from 'react-redux'
 import changeMaxRange from '../../modules/actions/pokemon/changeMaxRange.action';
-import toggleTypeFilter from '../../modules/actions/pokemon/toggleTypeFilter.action';
 import searchByName from '../../modules/actions/pokemon/searchByName.action';
 import { getFilteredPokemonSelector } from '../../modules/reducers/pokemon.reducer';
 import TypeBadge from '../TypeBadge/TypeBadge';
@@ -44,7 +43,7 @@ function ControlBar(props) {
                         <div className="c-control-bar__controls-type-icons">
                             {
                                 pokemon.types.map((type) => {
-                                    return <TypeBadge key={type} type={type} isSelected={pokemon.filteredTypes.includes(type)} onClick={() => { dispatch(toggleTypeFilter(type)) }} />
+                                    return <TypeBadge key={type} type={type} />
                                 })
                             }
                         </div>

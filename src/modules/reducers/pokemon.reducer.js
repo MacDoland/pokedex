@@ -132,4 +132,4 @@ const pokemonReducer = (state = defaultState, action) => {
   }
 };
 
-export { pokemonReducer, getFilteredPokemonSelector };
+export {defaultState, pokemonReducer, getFilteredPokemonSelector };
